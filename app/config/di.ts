@@ -10,8 +10,13 @@ import { serviceLocator } from '../lib/service_locator';
 const winston = require('winston');
 require('winston-daily-rotate-file');
 
+// user services and controllers
 import { UserServices } from '../services/user';
 import { UserController } from '../controllers/user';
+
+// hobby services and controllers
+import { HobbyServices } from '../services/hobbies';
+import { HobbyController } from '../controllers/hobbies';
 
 const mongoose = require('mongoose');
 const bluebird = require('bluebird');
@@ -82,13 +87,34 @@ serviceLocator.register('userService', (servicelocator) => {
 
 
 /**
- * Creates an instance of the questions Controller
+ * Creates an instance of the hobby Service
  */
-serviceLocator.register('authController', (servicelocator) => {
+serviceLocator.register('hobbyService', (servicelocator) => {
+  const logger = servicelocator.get('logger');
+  const mongoclient = servicelocator.get('mongo');
+  return new HobbyServices(logger, mongoclient);
+});
+
+
+/**
+ * Creates an instance of the user Controller
+ */
+serviceLocator.register('userController', (servicelocator) => {
   const logger = servicelocator.get('logger');
   const userService = servicelocator.get('userService');
   return new UserController(
     logger, userService
+  );
+});
+
+/**
+ * Creates an instance of the hobby Controller
+ */
+serviceLocator.register('hobbyController', (servicelocator) => {
+  const logger = servicelocator.get('logger');
+  const hobbyService = servicelocator.get('hobbyService');
+  return new HobbyController(
+    logger, hobbyService
   );
 });
 

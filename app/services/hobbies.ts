@@ -1,6 +1,6 @@
 import { userModel } from '../model/user';
 
-export class UserServices {
+export class HobbyServices {
     logger: any;
     mongoclient: any;
     /**

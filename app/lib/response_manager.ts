@@ -21,13 +21,13 @@ function respond(res, data, httpCode) {
     res.end(JSON.stringify(response));
   }
   
-  module.exports.success = function success(res, response, status = 200) {
+  export function success(res, response, status = 200) {
     const data = response;
     data.error = false;
     respond(res, data, status);
   };
   
-  module.exports.failure = function failure(res, response, httpCode = 503) {
+  export function failure(res, response, httpCode = 503) {
     const data = response;
     data.error = true;
     respond(res, data, httpCode);

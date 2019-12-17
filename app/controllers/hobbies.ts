@@ -1,7 +1,7 @@
 import { success, failure } from '../lib/response_manager';
 import { HTTPStatus } from '../constants/http_status';
 
-export class UserController {
+export class HobbyController {
     logger: any;
     userService: any;
     /**
@@ -14,7 +14,7 @@ export class UserController {
         this.userService = userService;
     }
 
-    createNewUser(req: { body: { name: any; }; }, res: any){
+    createNewHobby(req: { body: { name: any; }; }, res: any){
         const { name } = req.body;
             // check if required fields were sent
         if (!name) {

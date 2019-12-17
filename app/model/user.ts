@@ -2,25 +2,25 @@
  * Created by Micheal Adeyinka
  */
 
-const mongoose = require('mongoose');
-const config = require('../config/config');
+import mongoose from 'mongoose';
+import { config } from '../config/config'
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      required: true
-    },
+    // _id: Schema.Types.ObjectId,
     name: {
       type: String,
-      default: 'user',
       required: true
     },
-    hobbies: {
-      type: [String],
-      default: false,
-      required: true
-    },
+    // hobbies: {
+    //   type: [String],
+    //   default: false,
+    //   required: true
+    // },
+    hobbies: [
+      { type: Schema.Types.ObjectId, ref: 'hobbies' }
+    ]
   },
   {
     timestamps: true
