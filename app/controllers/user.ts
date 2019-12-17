@@ -38,7 +38,6 @@ export class UserController {
     async getAllUsers(req: any, res: any){
         try {
             const data = await this.userService.getAllUsers();
-            console.log('data gott', data)
             if(data.length === 0){
                 return success(res, {
                     message: 'No user data found',

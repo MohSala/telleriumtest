@@ -6,7 +6,7 @@ import { config } from './config/config';
 // service locator via dependency injection
 import { serviceLocate } from './config/di';
 
-const app = express();
+export const app = express();
 const port = config.server.port;
 
 app.use('/', userRouter);
@@ -26,4 +26,4 @@ app.listen(port, () => {
     logger.info(`${config.appName} is listening on port: ${port}`)
 });
 
-module.exports = app;
+// module.exports = app;
