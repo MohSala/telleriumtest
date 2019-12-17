@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  description: |
+  version: 1.0.0
+  title: API test
+# basePath: /v2
+tags:
+- name: user
+  description: Users
+- name: hobby
+  description: All hobbies
+# schemes:
+# - http
+paths:
+  /user:
+    post:
+      tags:
+      - user
+      summary: Add new user
+      operationId: addPet
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Pet object that needs to be added to the store
+        required: true
+        schema:
+          type: string
+      responses:
+        400:
+          description: Invalid input
+        201:
+          description: Data gotten
+        404:
+          description: Invalid input
+    get:
+      tags:
+      - user
+      summary: Get all user data
+      description: All user data
+      operationId: getUser
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        201:
+          description: user data gotten
+        400:
+          description: Invalid status value
+  /hobby:
+    post:
+      tags:
+      - hobby
+      summary: Add new hobby
+      operationId: addHobby
+      consumes:
+      - application/json
+      - application/xml
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - in: body
+        name: body
+        description: Add new hobby
+        required: true
+        schema:
+            type: string
+      responses:
+        400:
+            description: Invalid input
+        201:
+            description: Data gotten
+        404:
+            description: Invalid input
+    get:
+      tags:
+      - hobby
+      summary: Get all hobby data
+      description: All hobby data
+      operationId: getHobby
+      produces:
+      - application/json
+      - application/xml
+      responses:
+        201:
+            description: user data gotten
+        400:
+            description: Invalid status value
+  
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /wordaddict/test-prod/1.0.0
+schemes:
+ - https
+ - http
