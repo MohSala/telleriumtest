@@ -1,4 +1,4 @@
-import { userModel } from '../model/user';
+import { hobbyModel } from '../model/hobby';
 
 export class HobbyServices {
     logger: any;
@@ -10,7 +10,7 @@ export class HobbyServices {
      */
     constructor(logger: any, mongoclient: any) {
         this.logger = logger;
-        this.mongoclient = userModel(mongoclient);
+        this.mongoclient = hobbyModel(mongoclient);
     }
 
     /**
@@ -18,10 +18,22 @@ export class HobbyServices {
      *
      * @param name
      */
-    saveNewUser(name: any){
-        const user = new userModel({
-            "name": name
+     createNewHobby(param: any){
+        const { name, passionLevel, year, id } = param;
+        const hobby = new hobbyModel({
+            name,
+            passionLevel,
+            year,
+            id
         })
-        return user.save();
+        return hobby.save();
+    };
+
+    getAllHobbies(id: any){
+        return hobbyModel.find(id);
+    };
+
+    deleteHobby(id: any){
+        return hobbyModel.remove({ _id: id });
     }
 };

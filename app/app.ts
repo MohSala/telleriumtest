@@ -1,15 +1,16 @@
 import express from 'express';
 
-import { router } from './routes/index.js';
+import { userRouter } from './routes/user';
+import { hobbyRouter } from './routes/hobby';
 import { config } from './config/config';
 // service locator via dependency injection
 import { serviceLocate } from './config/di';
-// import { serviceLocator } from './lib/service_locator';
 
 const app = express();
-const port = 3000;
+const port = config.server.port;
 
-app.use('/', router);
+app.use('/', userRouter);
+app.use('/', hobbyRouter);
 app.get('/', (req, res) => {
   res.send('Welcome to API!');
 });

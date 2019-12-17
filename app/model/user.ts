@@ -8,18 +8,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema(
   {
-    // _id: Schema.Types.ObjectId,
     name: {
       type: String,
       required: true
     },
-    // hobbies: {
-    //   type: [String],
-    //   default: false,
-    //   required: true
-    // },
     hobbies: [
-      { type: Schema.Types.ObjectId, ref: 'hobbies' }
+      { type: Schema.Types.ObjectId, ref: config.mongo.collections.hobby }
     ]
   },
   {

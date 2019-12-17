@@ -24,4 +24,13 @@ export class UserServices {
         })
         return user.save();
     }
+
+    /**
+     * this method gets new users
+     *
+     * @param name
+     */
+    getAllUsers(){
+        return userModel.find();
+    };
 };

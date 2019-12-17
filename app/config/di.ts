@@ -1,8 +1,7 @@
 /**
- *  Created by Adeyinka Micheal on 14/02/2019.
+ *  Created by Adeyinka Micheal
  */
 
-// const config = require('../config/config');
 import { config } from '../config/config';
 import { serviceLocator } from '../lib/service_locator';
 
@@ -22,7 +21,7 @@ const mongoose = require('mongoose');
 const bluebird = require('bluebird');
 
 /**
- * Returns an instance of logger for the SE App
+ * Returns an instance of logger
  */
 serviceLocator.register('logger', () => {
 
@@ -56,15 +55,13 @@ serviceLocator.register('logger', () => {
  */
 
 serviceLocator.register('mongo', (servicelocator) => {
-  const logger = servicelocator.get('logger');
   const connectionString =
     (!config.mongo.connection.username || !config.mongo.connection.password) ?
       `mongodb://${config.mongo.connection.host}:${config.mongo.connection.port}/${config.mongo.connection.dbProd}` :
       `mongodb://${config.mongo.connection.username}:${config.mongo.connection.password}` +
       `@${config.mongo.connection.host}:${config.mongo.connection.port}/${config.mongo.connection.dbProd}`;
   mongoose.Promise = bluebird;
-  console.log('connectionString', connectionString)
-  const mongo = mongoose.connect(connectionString);
+  const mongo = mongoose.connect(connectionString,  { useNewUrlParser: true, useUnifiedTopology: true });
   mongo.then(() => {
       console.log('Mongo Connection Established', connectionString)
   }).catch(() => {

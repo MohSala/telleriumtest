@@ -3,15 +3,12 @@
  */
 
 import mongoose from 'mongoose';
-//const config = require('../config/config');
 import { config } from '../config/config'
-// const Schema = mongoose.Schema;
-
-const userSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const hobbySchema = new mongoose.Schema(
   {
     id: {
-      type: String,
-      required: true
+       type: Schema.Types.ObjectId, ref: config.mongo.collections.users,
     },
     name: {
       type: String,
@@ -34,5 +31,5 @@ const userSchema = new mongoose.Schema(
 );
 
 
-export const userModel = mongoose.model(config.mongo.collections.hobby, userSchema);
+export const hobbyModel = mongoose.model(config.mongo.collections.hobby, hobbySchema);
 

@@ -11,12 +11,8 @@ export const config = {
     url: process.env.APP_URL,
     port: process.env.APP_PORT
   },
-  mail: {
-    send_grid: process.env.SENDGRID_API_KEY
-  },
   baseUrl: process.env.BASE_URL,
   mongo: {
-    salt_value: 10,
     connection: {
       host: process.env.MONGODB_HOST,
       username: process.env.MONGODB_USER,
