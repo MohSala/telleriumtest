@@ -22,17 +22,9 @@
     "typescript": "^3.7.3"
   },
   "scripts": {
-    "start": "tsc && node dist/app.js",
+    "start": "tsc && node dist/app/app.js",
     "test": "tsc && mocha dist/test/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wordaddict/API-project.git"
-  },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wordaddict/API-project/issues"
-  },
-  "homepage": "https://github.com/wordaddict/API-project#readme"
+  "license": "ISC"
 }

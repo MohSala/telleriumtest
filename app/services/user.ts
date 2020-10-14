@@ -16,13 +16,19 @@ export class UserServices {
     /**
      * this method saves new users
      *
-     * @param name
+     * @param email
+     * @param password
      */
-    saveNewUser(name: any){
+    saveNewUser(email: string, password: string) {
         const user = new userModel({
-            "name": name
+            email,
+            password
         })
         return user.save();
+    }
+
+    checkForCreatedUser(email: string) {
+        return userModel.findOne({ email }).exec();
     }
 
     /**
@@ -30,7 +36,7 @@ export class UserServices {
      *
      * @param name
      */
-    getAllUsers(){
+    getAllUsers() {
         return userModel.find();
     };
 };

@@ -1,6 +1,3 @@
-/**
- * created by Adeyinka Micheal
- */
 require('dotenv').config()
 
 const appName = 'API test';
@@ -22,7 +19,7 @@ export const config = {
     },
     collections: {
       users: 'users',
-      hobby: 'hobbies'
+      market: 'market'
     },
     queryLimit: process.env.MONGODB_QUERY_LIMIT,
     questionLimit: process.env.QUESTION_LIMIT

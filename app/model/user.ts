@@ -1,20 +1,24 @@
-/**
- * Created by Micheal Adeyinka
- */
-
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { config } from '../config/config'
-const Schema = mongoose.Schema;
+
+export interface UserPayload {
+  _id: string;
+  email: string;
+  password: string;
+}
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
+    email: {
       type: String,
-      required: true
+      required: true,
+      trim: true
     },
-    hobbies: [
-      { type: Schema.Types.ObjectId, ref: config.mongo.collections.hobby }
-    ]
+    password: {
+      type: String,
+      trim: true,
+      required: true
+    }
   },
   {
     timestamps: true
@@ -22,5 +26,5 @@ const userSchema = new mongoose.Schema(
 );
 
 
-export const userModel = mongoose.model(config.mongo.collections.users, userSchema);
+export const userModel: Model<UserPayload> = mongoose.model<UserPayload>(config.mongo.collections.users, userSchema);
 

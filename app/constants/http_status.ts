@@ -1,13 +1,9 @@
-/**
- * Created by Micheal
- */
-
 export class HTTPStatus {
-    static BAD_REQUEST: number;
-    static CREATED: number;
-    static INTERNAL_SERVER_ERROR: number;
-    static OK: number;
-    static NOT_FOUND: number;
+  static BAD_REQUEST: number;
+  static CREATED: number;
+  static INTERNAL_SERVER_ERROR: number;
+  static OK: number;
+  static NOT_FOUND: number;
 }
 
 Object.defineProperty(HTTPStatus, 'OK', {
