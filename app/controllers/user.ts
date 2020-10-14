@@ -18,6 +18,7 @@ export class UserController {
     async createNewUser(req: { body: { email: UserPayload, password: UserPayload }; }, res: any) {
         const { email, password } = req.body;
         // check if required fields were sent
+        console.log(req.body)
         if (!email || !password) {
             return failure(res, { message: 'Error!! pls provide password, email ,fields' }, HTTPStatus.BAD_REQUEST);
         }

@@ -1,12 +1,40 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { config } from '../config/config'
-const Schema = mongoose.Schema;
+
+export interface MarketPayload {
+  name: string;
+  description: string;
+  category: string;
+  address: { type: string, coordinates: Array<number>, address: string };
+  images: Array<string>;
+}
+
 
 const marketSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    category: {
+      type: String,
+      required: true
+    },
+    images: [{ type: String }],
+    address: {
+      type: {
+        type: String
+      },
+      coordinates: {
+        type: [Number]
+      },
+      address: {
+        type: String
+      }
     },
 
   },
@@ -16,5 +44,5 @@ const marketSchema = new mongoose.Schema(
 );
 
 
-export const marketModel = mongoose.model(config.mongo.collections.market, marketSchema);
+export const marketModel: Model<MarketPayload> = mongoose.model<MarketPayload>(config.mongo.collections.market, marketSchema);
 

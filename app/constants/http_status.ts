@@ -4,6 +4,7 @@ export class HTTPStatus {
   static INTERNAL_SERVER_ERROR: number;
   static OK: number;
   static NOT_FOUND: number;
+  static UNAUTHORIZED: number;
 }
 
 Object.defineProperty(HTTPStatus, 'OK', {
@@ -37,6 +38,13 @@ Object.defineProperty(HTTPStatus, 'BAD_REQUEST', {
 
 Object.defineProperty(HTTPStatus, 'NOT_FOUND', {
   value: 404,
+  writable: false,
+  enumerable: true,
+  configurable: false,
+});
+
+Object.defineProperty(HTTPStatus, 'UNAUTHORIZED', {
+  value: 401,
   writable: false,
   enumerable: true,
   configurable: false,
