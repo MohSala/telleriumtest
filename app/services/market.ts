@@ -32,6 +32,10 @@ export class MarketService {
     return newMarket.save();
   }
 
+  getMarkets() {
+    return marketModel.find().exec();
+  }
+
   public async uploadImage(id: string, image: any) {
     return marketModel.findOneAndUpdate({ _id: id }, { images: image }, { new: true }).exec();
   }

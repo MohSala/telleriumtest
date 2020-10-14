@@ -88,4 +88,21 @@ export class MarketController {
       }
     })
   };
+
+  async getMarkets(req: any, res: any) {
+    try {
+      const data = await this.marketService.getMarkets();
+      if (data) {
+        return success(res, {
+          message: 'Market retrieved successfully',
+          response: data
+        }, HTTPStatus.OK);
+      }
+    } catch (error) {
+      this.logger.error('Error from fetching market', error);
+      return failure(res, {
+        message: 'Internal server Error',
+      }, HTTPStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
 }

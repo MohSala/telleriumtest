@@ -23,6 +23,10 @@ userRouter.post('/market', (req, res) => {
     return marketController.addMarket(req, res);
 });
 
+userRouter.get('/market', (req, res) => {
+    return marketController.getMarkets(req, res);
+});
+
 userRouter.post('/market/uploadImages/:id', (req, res) => {
     return marketController.uploadProductsImages(req, res);
 });
