@@ -11,8 +11,12 @@ userRouter.use(bodyParser.json());
 userRouter.use(bodyParser.urlencoded({ extended: false }));
 
 // Add a user
-userRouter.post('/user', (req, res) => {
+userRouter.post('/user/create', (req, res) => {
     return userController.createNewUser(req, res);
+});
+
+userRouter.post('/user/login', (req, res) => {
+    return userController.login(req, res);
 });
 
 userRouter.post('/market', (req, res) => {

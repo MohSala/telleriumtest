@@ -31,6 +31,10 @@ export class UserServices {
         return userModel.findOne({ email }).exec();
     }
 
+    async findOne(email: string) {
+        return userModel.findOne({ email })
+    }
+
     /**
      * this method gets new users
      *

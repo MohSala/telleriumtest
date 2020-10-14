@@ -1,6 +1,9 @@
 import { success, failure } from '../lib/response_manager';
 import { HTTPStatus } from '../constants/http_status';
 import { UserPayload } from '../model/user';
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+import { config } from '../config/config'
 
 export class UserController {
     logger: any;
@@ -28,11 +31,14 @@ export class UserController {
                 return failure(res, { message: 'Sorry this user already exists!' }, HTTPStatus.BAD_REQUEST);
             }
             else {
-                const data: UserPayload = await this.userService.saveNewUser(email, password);
+                const salt: String = await bcrypt.genSalt(10);
+                const hash: String = await bcrypt.hash(password, salt)
+                const data: UserPayload = await this.userService.saveNewUser(email, hash);
+                const token = await jwt.sign({ email }, config.secretKey, { expiresIn: '14d' })
                 this.logger.info('data from creating user', data);
                 return success(res, {
                     message: 'User created successfully',
-                    response: data
+                    response: { data, token }
                 }, HTTPStatus.CREATED);
             }
         } catch (err) {
@@ -41,6 +47,41 @@ export class UserController {
                 message: 'Internal server Error',
             }, HTTPStatus.INTERNAL_SERVER_ERROR);
         };
+    }
+
+    async login(req: any, res: any) {
+        let { email, password } = req.body;
+        try {
+
+            if (!email || !password) {
+                return failure(res, {
+                    message: 'Please fill in Email and Password Field',
+                }, HTTPStatus.BAD_REQUEST);
+            }
+            const data: UserPayload = await this.userService.findOne(email)
+            if (!data) {
+                return failure(res, { message: 'Invalid Credentials' },
+                    HTTPStatus.BAD_REQUEST);
+            }
+            const match = await bcrypt.compare(password, data.password)
+            if (!match) {
+                return failure(res, { message: 'Invalid credentials' },
+                    HTTPStatus.BAD_REQUEST);
+            }
+            else {
+
+                const token = await jwt.sign({ email }, config.secretKey, { expiresIn: '14d' })
+                return success(res, {
+                    message: 'User Signed in Successfully',
+                    response: { data, token },
+                }, HTTPStatus.OK);
+            }
+        } catch (error) {
+            this.logger.info("Error Occured during signin ", error)
+            return failure(res, {
+                message: 'Sorry an internal server error occured',
+            }, HTTPStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     async getAllUsers(req: any, res: any) {

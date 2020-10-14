@@ -1,7 +1,5 @@
 import { success, failure } from '../lib/response_manager';
 import { HTTPStatus } from '../constants/http_status';
-import { MarketPayload } from '../model/market';
-import { Request, Response } from "express"
 import { upload } from "../services/imageUpload"
 export class MarketController {
   logger: any;

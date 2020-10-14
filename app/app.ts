@@ -1,5 +1,5 @@
 import express from 'express';
-
+import cors from "cors"
 import { userRouter } from './routes/user';
 // import { marketRouter } from "./routes/market"
 import { config } from './config/config';
@@ -8,7 +8,7 @@ import { serviceLocate } from './config/di';
 
 export const app = express();
 const port = config.server.port;
-
+app.use(cors())
 app.use('/api/v1/', userRouter);
 // app.use('/api/v1/m/', marketRouter);
 app.get('/', (req, res) => {
