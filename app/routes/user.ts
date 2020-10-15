@@ -1,7 +1,7 @@
 import express = require('express');
 import bodyParser = require('body-parser');
 import { serviceLocate } from '../config/di';
-
+const upload = require("../services/imageUpload")
 const userController = serviceLocate.get('userController');
 const marketController = serviceLocate.get('marketController');
 
@@ -28,7 +28,7 @@ userRouter.get('/market', (req, res) => {
 });
 
 userRouter.post('/market/uploadImages/:id', (req, res) => {
-    return marketController.uploadProductsImages(req, res);
+    return marketController.uploadImage(req, res);
 });
 
 // get all users

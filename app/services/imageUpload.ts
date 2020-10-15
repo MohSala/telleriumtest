@@ -27,7 +27,6 @@ export const upload = multer({
     s3: s3,
     bucket: config.aws.bucket,
     acl: "public-read",
-    limits: { fileSize: 2000000 }, // In bytes: 2000000 bytes = 2 MB
     metadata: (req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
     },
@@ -36,5 +35,5 @@ export const upload = multer({
       cb(null, name)
     }
   })
-}).array('photos', 10);
+})
 

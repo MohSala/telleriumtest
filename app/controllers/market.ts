@@ -54,6 +54,7 @@ export class MarketController {
         }, HTTPStatus.INTERNAL_SERVER_ERROR);
       } else {
         // If File not found
+        console.log(req.files);
         if (req.files === undefined) {
           console.log('uploadProductsImages Error: No File Selected!');
           res.status(500).json({
@@ -88,6 +89,35 @@ export class MarketController {
       }
     })
   };
+
+  async uploadImage(req: any, res: any) {
+    const singleUpload = upload.single('photos');
+    const { id } = req.params
+    try {
+      return singleUpload(req, res, async (err) => {
+        if (err) {
+          this.logger.info("Error Uploading image ", err)
+          return failure(res, {
+            message: 'Sorry user image could not be uploaded',
+          }, HTTPStatus.BAD_REQUEST);
+        }
+        const imageUrl: String = req.file.location
+        const data = await this.marketService.uploadImage(id, imageUrl)
+        return success(res, {
+          message: 'Image Uploaded Successfully',
+          response: data
+        }, HTTPStatus.OK);
+      })
+
+    } catch (error) {
+      this.logger.info("Error Uploading image ", error)
+      return failure(res, {
+        message: 'Sorry an error occured while uploading image',
+      }, HTTPStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
+  }
 
   async getMarkets(req: any, res: any) {
     try {
