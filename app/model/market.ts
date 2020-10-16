@@ -14,14 +14,17 @@ const marketSchema = new mongoose.Schema(
   {
     name: {
       type: String,
+      text: true,
       required: true
     },
     description: {
       type: String,
+      text: true,
       required: true
     },
     category: {
       type: String,
+      text: true,
       required: true
     },
     images: [{ type: String }],
@@ -33,7 +36,8 @@ const marketSchema = new mongoose.Schema(
         type: [Number]
       },
       address: {
-        type: String
+        type: String,
+        text: true,
       }
     },
 
@@ -43,6 +47,6 @@ const marketSchema = new mongoose.Schema(
   }
 );
 
-
+marketSchema.index({ '$**': 'text' })
 export const marketModel: Model<MarketPayload> = mongoose.model<MarketPayload>(config.mongo.collections.market, marketSchema);
 

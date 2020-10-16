@@ -39,4 +39,12 @@ export class MarketService {
   public async uploadImage(id: string, image: any) {
     return marketModel.findOneAndUpdate({ _id: id }, { $push: { images: image } }, { new: true }).exec();
   }
+
+  async searchForMarkets(query: string) {
+    return marketModel.find({
+      "$text": {
+        "$search": query
+      }
+    }).exec();
+  }
 }

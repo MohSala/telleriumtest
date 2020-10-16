@@ -34,7 +34,7 @@ export class UserController {
                 const salt: String = await bcrypt.genSalt(10);
                 const hash: String = await bcrypt.hash(password, salt)
                 const data: UserPayload = await this.userService.saveNewUser(email, hash);
-                const token = await jwt.sign({ email }, config.secretKey, { expiresIn: '14d' })
+                const token = await jwt.sign({ email, role: data.role }, config.secretKey, { expiresIn: '14d' })
                 this.logger.info('data from creating user', data);
                 return success(res, {
                     message: 'User created successfully',
@@ -70,7 +70,7 @@ export class UserController {
             }
             else {
 
-                const token = await jwt.sign({ email }, config.secretKey, { expiresIn: '14d' })
+                const token = await jwt.sign({ email, role: data.role }, config.secretKey, { expiresIn: '14d' })
                 return success(res, {
                     message: 'User Signed in Successfully',
                     response: { data, token },

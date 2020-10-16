@@ -1,6 +1,7 @@
 import { success, failure } from '../lib/response_manager';
 import { HTTPStatus } from '../constants/http_status';
 import { upload } from "../services/imageUpload"
+import { MarketPayload } from '../model/market';
 export class MarketController {
   logger: any;
   marketService: any;
@@ -130,6 +131,34 @@ export class MarketController {
       }
     } catch (error) {
       this.logger.error('Error from fetching market', error);
+      return failure(res, {
+        message: 'Internal server Error',
+      }, HTTPStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async searchMarkets(req: any, res: any) {
+    const { q } = req.query;
+    if (!q) {
+      return failure(res, {
+        message: 'No search query provided',
+      }, HTTPStatus.BAD_REQUEST);
+    }
+    try {
+      const data: MarketPayload = await this.marketService.searchForMarkets(q);
+      if (!data) {
+        return failure(res, {
+          message: 'No data found',
+        }, HTTPStatus.NOT_FOUND);
+      }
+      else {
+        return success(res, {
+          message: 'Markets retrieved successfully',
+          response: data
+        }, HTTPStatus.OK);
+      }
+    } catch (error) {
+      this.logger.error('Error from fetching markets', error);
       return failure(res, {
         message: 'Internal server Error',
       }, HTTPStatus.INTERNAL_SERVER_ERROR);

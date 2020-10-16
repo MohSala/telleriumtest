@@ -5,6 +5,7 @@ export interface UserPayload {
   _id: string;
   email: string;
   password: string;
+  role: string;
 }
 
 const userSchema = new mongoose.Schema(

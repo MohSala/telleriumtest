@@ -27,6 +27,10 @@ userRouter.get('/market', (req, res) => {
     return marketController.getMarkets(req, res);
 });
 
+userRouter.get('/markets', (req, res) => {
+    return marketController.searchMarkets(req, res);
+});
+
 userRouter.post('/market/uploadImages/:id', (req, res) => {
     return marketController.uploadImage(req, res);
 });
